@@ -28,6 +28,7 @@ s.anonymous = true
 
 
 mode = s:taboption("general", ListValue, "mode", translate("Operation mode"))
+mode:value("client", translate("Client"))
 mode:value("server", translate("Server"))
 mode:value("forwarder", translate("Forwarder"))
 

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+[ -n "${IPKG_INSTROOT}" ] || {
+	( . /etc/uci-defaults/luci-babeld ) && rm -f /etc/uci-defaults/luci-babeld
+	/etc/init.d/babeld enabled || /etc/init.d/babeld enable
+	exit 0
+}

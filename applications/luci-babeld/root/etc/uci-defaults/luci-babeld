@@ -1,0 +1,11 @@
+#!/bin/sh
+
+uci -q batch <<-EOF >/dev/null
+	delete ucitrack.@babeld[-1]
+	add ucitrack babeld
+	set ucitrack.@babeld[-1].init=babeld
+	commit ucitrack
+EOF
+
+rm -f /tmp/luci-indexcache
+exit 0

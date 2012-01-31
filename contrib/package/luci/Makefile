@@ -348,6 +348,9 @@ $(eval $(call application,olsr-services,Show services announced with the nameser
 $(eval $(call application,qos,Quality of Service configuration module,\
 	+PACKAGE_luci-app-qos:qos-scripts))
 
+$(eval $(call application,aqm,Active Queue Management module,\
+	+PACKAGE_luci-app-aqm:aqm-scripts))
+
 $(eval $(call application,splash,Freifunk DHCP-Splash application,\
 	+luci-lib-nixio +tc +kmod-sched +iptables-mod-nat-extra +iptables-mod-ipopt))
 

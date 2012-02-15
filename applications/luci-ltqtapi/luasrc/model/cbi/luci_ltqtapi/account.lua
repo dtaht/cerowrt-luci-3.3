@@ -12,18 +12,15 @@ You may obtain a copy of the License at
 ]]--
 
 m = Map("telephony", translate("VoIP"))
-
-s = m:section(NamedSection, "config", "config", "Config", "Here You can specify the generic Configuration.")
 m.on_after_commit = function() luci.sys.call("/etc/init.d/telephony restart") end
 
-s:option(Value, "netdev", translate("Network"))
+s = m:section(TypedSection, "account", translate("Account"), translate("Here You can specify the SIP account that you want to use."))
+s.anonymous = true
+s.addremove = true
 
-e = s:option(ListValue, "fw_dl", translate("Download firmware"))
-e:value("0", translate("No"))
-e:value("1", translate("Yes"))
-e.default = "0"
-
-e = s:option(Value, "fw_url", translate("Firmware path"))
-e:depends("fw_dl", 1)
+s:option(Value, "realm", translate("Realm"))
+s:option(Value, "username", translate("Username"))
+s:option(Value, "password", translate("Password"))
+s:option(Flag, "disabled", translate("Disabled"))
 
 return m

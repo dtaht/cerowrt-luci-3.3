@@ -85,24 +85,24 @@ end
 				-%>
 
 				<%- if self.sortable then -%>
-					<td class="cbi-section-table-cell" style="padding:3px; white-space:nowrap">
+					<td class="cbi-section-table-cell">
 						<input class="cbi-button cbi-button-up" type="button" value=""  onclick="return cbi_row_swap(this, true, 'cbi.sts.<%=self.config%>.<%=self.sectiontype%>')" alt="<%:Move up%>" title="<%:Move up%>" />
 						<input class="cbi-button cbi-button-down" type="button" value=""  onclick="return cbi_row_swap(this, false, 'cbi.sts.<%=self.config%>.<%=self.sectiontype%>')" alt="<%:Move down%>" title="<%:Move down%>" />
 					</td>
 				<%- end -%>
 
 				<%- if self.extedit or self.addremove then -%>
-					<td class="cbi-section-table-cell" style="padding:3px; white-space:nowrap">
+					<td class="cbi-section-table-cell">
 						<%- if self.extedit then -%>
-							<input class="cbi-button cbi-button-add" type="button" value="<%:Edit%>"
+							<input class="cbi-button cbi-button-edit" type="button" value="<%:Edit%>"
 							<%- if type(self.extedit) == "string" then
-							%> onclick="window.location='<%=self.extedit:format(section)%>'"
+							%> onclick="location.href='<%=self.extedit:format(section)%>'"
 							<%- elseif type(self.extedit) == "function" then
-							%> onclick="window.location='<%=self:extedit(section)%>'"
+							%> onclick="location.href='<%=self:extedit(section)%>'"
 							<%- end 
-							%> alt="<%:Edit%>" title="<%:Edit%>" style="text-align: center;background-image:url(<%=resource%>/cbi/edit.gif)" />
+							%> alt="<%:Edit%>" title="<%:Edit%>" />
 						<%- end; if self.addremove then %>
-							<input class="cbi-button cbi-button-add" type="button" value="<%:Delete%>"  onclick="this.form.cbi_state='del-section'; return true" name="cbi.rts.<%=self.config%>.<%=k%>" alt="<%:Delete%>" title="<%:Delete%>" style="text-align: center;background-image:url(<%=resource%>/cbi/remove.gif)" />
+							<input class="cbi-button cbi-button-remove" type="submit" value="<%:Delete%>"  onclick="this.form.cbi_state='del-section'; return true" name="cbi.rts.<%=self.config%>.<%=k%>" alt="<%:Delete%>" title="<%:Delete%>" />
 						<%- end -%>
 					</td>
 				<%- end -%>

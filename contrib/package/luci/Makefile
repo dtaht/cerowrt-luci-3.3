@@ -360,7 +360,8 @@ $(eval $(call application,statistics,LuCI Statistics Application,\
 	+PACKAGE_luci-app-statistics:collectd-mod-rrdtool \
 	+PACKAGE_luci-app-statistics:collectd-mod-iwinfo \
 	+PACKAGE_luci-app-statistics:collectd-mod-interface \
-	+PACKAGE_luci-app-statistics:collectd-mod-load))
+	+PACKAGE_luci-app-statistics:collectd-mod-load)) \
+	+PACKAGE_luci-app-statistics:collectd-mod-network))
 
 
 $(eval $(call application,diag-core,LuCI Diagnostics Tools (Core)))

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+uci -q batch <<-EOF >/dev/null
+	delete ucitrack.@gpsd[-1]
+	add ucitrack gpsd
+	set ucitrack.@gpsd[-1].init=gpsd
+	commit ucitrack
+EOF
+
+rm -f /tmp/luci-indexcache
+exit 0

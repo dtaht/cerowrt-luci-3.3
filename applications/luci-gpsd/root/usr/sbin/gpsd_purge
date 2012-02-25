@@ -1,0 +1,18 @@
+#!/bin/sh
+
+DAEMON=/usr/sbin/gpsd
+PIDFILE=`uci get gpsd.daemon.pidFile`
+CFGFILE=/var/etc/gpsd.conf
+
+[ -e "$PIDFILE" ] && {
+	PID=`cat $PID_FILE`
+
+	# send gpsd USR1 signal to write its in-memory cache to disk
+	kill -USR1 $PID
+	sleep 2
+	# start gpsd with -x flag to purge the on-disk cache
+	gpsd -c $CFGFILE -x
+	# send gpsd USR2 signal to discard its in-memory cache
+	kill -USR2 $PID
+}
+

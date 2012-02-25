@@ -1,0 +1,6 @@
+#!/bin/sh
+[ -n "${IPKG_INSTROOT}" ] || {
+	( . /etc/uci-defaults/luci-gpsd ) && rm -f /etc/uci-defaults/luci-gpsd
+	/etc/init.d/gpsd enabled || /etc/init.d/gpsd enable
+	exit 0
+}

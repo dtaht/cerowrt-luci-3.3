@@ -17,8 +17,11 @@ local fs = require "nixio.fs"
 
 m = Map("aqm", translate("Active Queue Management"),
 	translate("With <abbr title=\"Active Queue Management\">AQM</abbr> you " ..
-		"can prioritize network traffic selected by addresses, " ..
-		"ports or services."))
+		"can prioritize network traffic via Diffserv, " ..
+		"Shorter, sparser streams are prioritized automatically so " ..
+		"there is generally no need to prioritize ports or ips" ..
+		"Port or IP based classification is currently not supported" .. 
+	        "Instead classify traffic as EF, AF42, BE, or CS1" ))
 
 s = m:section(TypedSection, "interface", translate("Interfaces"))
 s.addremove = true
@@ -41,59 +44,59 @@ s:option(Value, "download", translate("Download speed (kbit/s)"))
 
 s:option(Value, "upload", translate("Upload speed (kbit/s)"))
 
-s = m:section(TypedSection, "classify", translate("Classification Rules"))
-s.template = "cbi/tblsection"
-s.anonymous = true
-s.addremove = true
-s.sortable  = true
+-- s = m:section(TypedSection, "classify", translate("Classification Rules"))
+-- s.template = "cbi/tblsection"
+-- s.anonymous = true
+-- s.addremove = true
+-- s.sortable  = true
 
-t = s:option(ListValue, "target", translate("Target"))
-t:value("Priority", translate("priority"))
-t:value("Express", translate("express"))
-t:value("Normal", translate("normal"))
-t:value("Bulk", translate("low"))
-t.default = "Normal"
+-- t = s:option(ListValue, "target", translate("Target"))
+-- t:value("Voice", translate("voice"))
+-- t:value("Priority", translate("express"))
+-- t:value("Normal", translate("normal"))
+-- t:value("Bulk", translate("low"))
+-- t.default = "Normal"
 
-srch = s:option(Value, "srchost", translate("Source host"))
-srch.rmempty = true
-srch:value("", translate("all"))
-wa.cbi_add_knownips(srch)
+-- srch = s:option(Value, "srchost", translate("Source host"))
+-- srch.rmempty = true
+-- srch:value("", translate("all"))
+-- wa.cbi_add_knownips(srch)
 
-dsth = s:option(Value, "dsthost", translate("Destination host"))
-dsth.rmempty = true
-dsth:value("", translate("all"))
-wa.cbi_add_knownips(dsth)
+-- dsth = s:option(Value, "dsthost", translate("Destination host"))
+-- dsth.rmempty = true
+-- dsth:value("", translate("all"))
+-- wa.cbi_add_knownips(dsth)
 
-l7 = s:option(ListValue, "layer7", translate("Service"))
-l7.rmempty = true
-l7:value("", translate("all"))
+-- l7 = s:option(ListValue, "layer7", translate("Service"))
+-- l7.rmempty = true
+-- l7:value("", translate("all"))
 
-local pats = io.popen("find /etc/l7-protocols/ -type f -name '*.pat'")
-if pats then
-	local l
-	while true do
-		l = pats:read("*l")
-		if not l then break end
+-- local pats = io.popen("find /etc/l7-protocols/ -type f -name '*.pat'")
+-- if pats then
+-- 	local l
+-- 	while true do
+-- 		l = pats:read("*l")
+-- 		if not l then break end
 
-		l = l:match("([^/]+)%.pat$")
-		if l then
-			l7:value(l)
-		end
-	end
-	pats:close()
-end
+-- 		l = l:match("([^/]+)%.pat$")
+-- 		if l then
+-- 			l7:value(l)
+-- 		end
+-- 	end
+-- 	pats:close()
+-- end
 
-p = s:option(Value, "proto", translate("Protocol"))
-p:value("", translate("all"))
-p:value("tcp", "TCP")
-p:value("udp", "UDP")
-p:value("icmp", "ICMP")
-p.rmempty = true
+-- p = s:option(Value, "proto", translate("Protocol"))
+-- p:value("", translate("all"))
+-- p:value("tcp", "TCP")
+-- p:value("udp", "UDP")
+-- p:value("icmp", "ICMP")
+-- p.rmempty = true
 
-ports = s:option(Value, "ports", translate("Ports"))
-ports.rmempty = true
-ports:value("", translate("all"))
+-- ports = s:option(Value, "ports", translate("Ports"))
+-- ports.rmempty = true
+-- ports:value("", translate("all"))
 
-bytes = s:option(Value, "connbytes", translate("Number of bytes"))
+-- bytes = s:option(Value, "connbytes", translate("Number of bytes"))
 
 return m

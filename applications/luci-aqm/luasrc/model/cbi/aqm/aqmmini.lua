@@ -22,7 +22,7 @@ m = Map("aqm")
 s = m:section(NamedSection, "wan", "interface", translate("Internet Connection"))
 
 s:option(Flag, "enabled", translate("Quality of Service"))
-s:option(Value, "QMODEL", translate("AQM Model"))
+s:option(Value, "qmodel", translate("AQM Model"))
 s:option(Value, "download", translate("Downlink"), "kbit/s")
 s:option(Value, "upload", translate("Uplink"), "kbit/s")
 
